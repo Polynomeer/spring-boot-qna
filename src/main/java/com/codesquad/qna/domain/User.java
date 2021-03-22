@@ -10,7 +10,7 @@ public class User {
     private Long id;
 
     @Column(nullable = false, length = 32, unique = true)
-    private User userId;
+    private String userId;
 
     @Column(nullable = false, length = 64)
     @NotBlank(message = "Password may not be blank")
@@ -26,7 +26,7 @@ public class User {
         return id;
     }
 
-    public User getUserId() {
+    public String getUserId() {
         return userId;
     }
 
@@ -46,7 +46,7 @@ public class User {
         this.id = id;
     }
 
-    public void setUserId(User userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

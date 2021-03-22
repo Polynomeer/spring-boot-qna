@@ -5,6 +5,8 @@ import com.codesquad.qna.util.DateTimeUtils;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Question {
@@ -14,7 +16,6 @@ public class Question {
 
     @ManyToOne
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_question_writer"))
-    @Column(nullable = false, length = 32)
     private User writer;
 
     @Column(nullable = false)
@@ -24,6 +25,10 @@ public class Question {
     @Column(length = 3000)
     private String contents;
     private LocalDateTime createdDateTime;
+
+    @OneToMany
+    @JoinColumn(foreignKey = @ForeignKey(name = "fk_question_answer"))
+    private final List<Answer> answers = new ArrayList<>();
 
     public Question(User writer, String title, String contents) {
         this.writer = writer;

@@ -10,8 +10,7 @@ public class User {
     private Long id;
 
     @Column(nullable = false, length = 32, unique = true)
-    @NotBlank(message = "Name may not be blank")
-    private String userId;
+    private User userId;
 
     @Column(nullable = false, length = 64)
     @NotBlank(message = "Password may not be blank")
@@ -27,7 +26,7 @@ public class User {
         return id;
     }
 
-    public String getUserId() {
+    public User getUserId() {
         return userId;
     }
 
@@ -47,7 +46,7 @@ public class User {
         this.id = id;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(User userId) {
         this.userId = userId;
     }
 
@@ -74,7 +73,7 @@ public class User {
         return this.id.equals(id);
     }
 
-    public boolean isMatchedUserId(String userId) {
+    public boolean isMatchedUserId(User userId) {
         return this.userId.equals(userId);
     }
 

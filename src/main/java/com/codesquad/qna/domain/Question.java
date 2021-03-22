@@ -12,8 +12,10 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @ManyToOne
+    @JoinColumn(foreignKey = @ForeignKey(name = "fk_question_writer"))
     @Column(nullable = false, length = 32)
-    private String writer;
+    private User writer;
 
     @Column(nullable = false)
     @NotEmpty(message = "Title may not be empty")
@@ -23,7 +25,7 @@ public class Question {
     private String contents;
     private LocalDateTime createdDateTime;
 
-    public Question(String writer, String title, String contents) {
+    public Question(User writer, String title, String contents) {
         this.writer = writer;
         this.title = title;
         this.contents = contents;
@@ -41,7 +43,7 @@ public class Question {
         return id;
     }
 
-    public String getWriter() {
+    public User getWriter() {
         return writer;
     }
 

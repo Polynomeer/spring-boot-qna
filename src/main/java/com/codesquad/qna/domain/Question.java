@@ -26,9 +26,8 @@ public class Question {
     private String contents;
     private LocalDateTime createdDateTime;
 
-    @OneToMany
-    @JoinColumn(foreignKey = @ForeignKey(name = "fk_question_answer"))
-    private final List<Answer> answers = new ArrayList<>();
+    @OneToMany(mappedBy = "question")
+    private List<Answer> answers;
 
     public Question(User writer, String title, String contents) {
         this.writer = writer;
@@ -38,10 +37,6 @@ public class Question {
     }
 
     protected Question() {
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public long getId() {

@@ -83,7 +83,9 @@ public class QuestionController {
         if (!HttpSessionUtils.isLoginUser(session)) {
             return "redirect:/users/loginForm";
         }
+        logger.error("before saved");
         questionService.save(question, session);
+        logger.error("question saved");
         return "redirect:/";
     }
 

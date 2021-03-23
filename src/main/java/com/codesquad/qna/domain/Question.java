@@ -67,6 +67,14 @@ public class Question {
         return DateTimeUtils.formatByPattern(createdDateTime);
     }
 
+    public List<Answer> getAnswers() {
+        return this.answers;
+    }
+
+    public int getAnswerNum() {
+        return answers.size();
+    }
+
     public void update(Question updatedQuestion) {
         this.title = updatedQuestion.title;
         this.contents = updatedQuestion.contents;

@@ -27,5 +27,13 @@ public class Answer {
         this.question = question;
         this.contents = contents;
     }
+
+    public String getUserId() {
+        return writer.getUserId();
+    }
+
+    public String getContents() {
+        return contents;
+    }
 }
 

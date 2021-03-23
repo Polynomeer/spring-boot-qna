@@ -20,7 +20,4 @@ public class AnswerService {
         answerRepository.save(answer);
     }
 
-    public List<Answer> findAll() {
-        return answerRepository.findAll();
-    }
 }

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/questions/{id}/answers")
+@RequestMapping("/questions/{questionId}/answers")
 public class AnswerController {
     private final QuestionService questionService;
     private final AnswerService answerService;
@@ -29,18 +29,16 @@ public class AnswerController {
     }
 
     @PostMapping
-    public String create(@PathVariable Long id, String contents, Model model, HttpSession session) {
+    public String create(@PathVariable Long questionId, String contents, HttpSession session) {
         if(!HttpSessionUtils.isLoginUser(session)) {
             throw new UnauthorizedUserAccessException();
         }
 
         User user = HttpSessionUtils.getUserFromSession(session);
-        Question question = questionService.findQuestionById(id);
+        Question question = questionService.findQuestionById(questionId);
         Answer answer = new Answer(user, question, contents);
 
         answerService.save(answer);
-        model.addAttribute("answers", answerService.findAll());
-
-        return "/qna/show";
+        return "redirect:/questions/{questionId}";
     }
 }

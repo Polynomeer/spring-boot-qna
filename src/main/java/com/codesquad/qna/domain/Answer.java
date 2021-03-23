@@ -1,8 +1,11 @@
 package com.codesquad.qna.domain;
 
+import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 
 @Entity
+@Where(clause = "deleted = false")
 public class Answer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +22,8 @@ public class Answer {
     @Lob
     private String contents;
 
+    private boolean deleted;
+
     protected Answer() {
     }
 
@@ -28,12 +33,20 @@ public class Answer {
         this.contents = contents;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public String getUserId() {
         return writer.getUserId();
     }
 
     public String getContents() {
         return contents;
+    }
+
+    public void delete() {
+        deleted = true;
     }
 }
 

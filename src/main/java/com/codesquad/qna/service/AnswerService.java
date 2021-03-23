@@ -20,4 +20,13 @@ public class AnswerService {
         answerRepository.save(answer);
     }
 
+    public Answer findAnswerById(Long answerId) {
+        return answerRepository.findById(answerId)
+                .orElseThrow(IllegalArgumentException::new);
+    }
+
+    public void delete(Answer answer) {
+        answer.delete();
+        answerRepository.save(answer);
+    }
 }

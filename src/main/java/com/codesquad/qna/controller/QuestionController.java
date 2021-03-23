@@ -45,7 +45,7 @@ public class QuestionController {
 
         logger.error("Sessioned User : {}, Writer : {}", sessionedUser.getUserId(), question.getWriter());
 
-        if (!sessionedUser.isMatchedUserId(question.getWriter())) {
+        if (!sessionedUser.isMatchedUserId(question.getUserId())) {
             throw new IllegalUserAccessException();
         }
 
@@ -63,7 +63,7 @@ public class QuestionController {
         User sessionedUser = HttpSessionUtils.getUserFromSession(session);
         Question question = questionService.findQuestionById(id);
 
-        if (!sessionedUser.isMatchedUserId(question.getWriter())) {
+        if (!sessionedUser.isMatchedUserId(question.getUserId())) {
             throw new IllegalUserAccessException();
         }
 
@@ -103,7 +103,7 @@ public class QuestionController {
         User sessionedUser = HttpSessionUtils.getUserFromSession(session);
         Question question = questionService.findQuestionById(id);
 
-        if (!sessionedUser.isMatchedUserId(question.getWriter())) {
+        if (!sessionedUser.isMatchedUserId(question.getUserId())) {
             throw new IllegalUserAccessException();
         }
 

@@ -73,7 +73,7 @@ public class User {
         return this.id.equals(id);
     }
 
-    public boolean isMatchedUserId(User userId) {
+    public boolean isMatchedUserId(String userId) {
         return this.userId.equals(userId);
     }
 

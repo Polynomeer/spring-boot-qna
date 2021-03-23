@@ -1,6 +1,7 @@
 package com.codesquad.qna.domain;
 
 import com.codesquad.qna.util.DateTimeUtils;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -27,7 +28,10 @@ public class Question {
     private LocalDateTime createdDateTime;
 
     @OneToMany(mappedBy = "question")
+    @Where(clause = "deleted = false")
     private List<Answer> answers;
+
+    private boolean deleted;
 
     public Question(User writer, String title, String contents) {
         this.writer = writer;

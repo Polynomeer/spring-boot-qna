@@ -47,6 +47,10 @@ public class Question {
         return writer;
     }
 
+    public String getUserId() {
+        return this.writer.getUserId();
+    }
+
     public String getTitle() {
         return title;
     }

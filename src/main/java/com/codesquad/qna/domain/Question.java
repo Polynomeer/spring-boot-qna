@@ -10,10 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Where(clause = "deleted = false")
 public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_question_writer"))
@@ -43,7 +44,7 @@ public class Question {
     protected Question() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -84,6 +85,10 @@ public class Question {
         this.contents = updatedQuestion.contents;
     }
 
+    public void delete() {
+        deleted = true;
+    }
+
     @Override
     public String toString() {
         return "Question{" +
@@ -94,4 +99,6 @@ public class Question {
                 ", createdDateTime=" + createdDateTime +
                 '}';
     }
+
+
 }

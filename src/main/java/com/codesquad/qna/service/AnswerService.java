@@ -14,8 +14,8 @@ public class AnswerService {
         this.answerRepository = answerRepository;
     }
 
-    public void save(Answer answer) {
-        answerRepository.save(answer);
+    public Answer save(Answer answer) {
+        return answerRepository.save(answer);
     }
 
     public Answer findAnswerById(Long answerId) {

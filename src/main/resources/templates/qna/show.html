@@ -80,7 +80,7 @@
                             </article>
                             {{/ question.answers}}
 
-                            <form class="submit-write" method="POST" action="/questions/{{question.id}}/answers">
+                            <form class="answer-write" method="POST" action="/api/questions/{{question.id}}/answers">
                                 <div class="form-group" style="padding:14px;">
                                     <textarea class="form-control" id="contents" name="contents"
                                               placeholder="Write down your answer"></textarea>

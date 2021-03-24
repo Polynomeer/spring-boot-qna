@@ -4,6 +4,7 @@ import com.codesquad.qna.domain.Answer;
 import com.codesquad.qna.domain.Question;
 import com.codesquad.qna.domain.User;
 import com.codesquad.qna.exception.IllegalUserAccessException;
+import com.codesquad.qna.exception.UnauthorizedUserAccessException;
 import com.codesquad.qna.service.AnswerService;
 import com.codesquad.qna.service.QuestionService;
 import com.codesquad.qna.util.HttpSessionUtils;
@@ -17,30 +18,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/questions/{questionId}/answers")
-public class AnswerController {
+@RequestMapping("/api/questions/{questionId}/answers")
+public class ApiAnswerController {
     private final AnswerService answerService;
     private final QuestionService questionService;
 
     @Autowired
-    public AnswerController(AnswerService answerService, QuestionService questionService) {
+    public ApiAnswerController(AnswerService answerService, QuestionService questionService) {
         this.answerService = answerService;
         this.questionService = questionService;
     }
 
     @PostMapping
-    public String create(@PathVariable Long questionId, String contents, HttpSession session) {
+    public Answer create(@PathVariable Long questionId, String contents, HttpSession session) {
         if (!HttpSessionUtils.isLoginUser(session)) {
-            return "redirect:/users/loginForm";
+            throw new UnauthorizedUserAccessException();
         }
 
         User sessionedUser = HttpSessionUtils.getUserFromSession(session);
         Question question = questionService.findQuestionById(questionId);
         Answer answer = new Answer(sessionedUser, question, contents);
 
-        answerService.save(answer);
-
-        return "redirect:/questions/{questionId}";
+        return answerService.save(answer);
     }
 
     @DeleteMapping("{answerId}")

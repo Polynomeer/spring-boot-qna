@@ -1,6 +1,8 @@
 package com.codesquad.qna.domain;
 
 import com.codesquad.qna.util.DateTimeUtils;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -13,17 +15,21 @@ import java.util.List;
 public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty
     private Long id;
 
     @ManyToOne
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_question_writer"))
+    @JsonProperty
     private User writer;
 
     @Column(nullable = false)
     @NotEmpty(message = "Title may not be empty")
+    @JsonProperty
     private String title;
 
     @Lob
+    @JsonProperty
     private String contents;
 
     private LocalDateTime createdDateTime;
@@ -33,6 +39,7 @@ public class Question {
     @OneToMany(mappedBy = "question")
     @OrderBy("id ASC")
     @Where(clause = "deleted = false")
+    @JsonIgnore
     private List<Answer> answers;
 
     public Question(User writer, String title, String contents) {

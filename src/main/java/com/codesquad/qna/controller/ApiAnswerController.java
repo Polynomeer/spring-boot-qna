@@ -9,15 +9,11 @@ import com.codesquad.qna.service.AnswerService;
 import com.codesquad.qna.service.QuestionService;
 import com.codesquad.qna.util.HttpSessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
-@Controller
+@RestController
 @RequestMapping("/api/questions/{questionId}/answers")
 public class ApiAnswerController {
     private final AnswerService answerService;

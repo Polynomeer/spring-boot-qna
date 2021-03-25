@@ -1,6 +1,8 @@
 package com.codesquad.qna.domain;
 
 import com.codesquad.qna.util.DateTimeUtils;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -14,22 +16,29 @@ import java.util.List;
 public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty
     private Long id;
 
     @ManyToOne
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_question_writer"))
+    @JsonProperty
     private User writer;
 
     @Column(nullable = false)
     @NotEmpty(message = "Title may not be empty")
+    @JsonProperty
     private String title;
 
     @Column(length = 3000)
+    @JsonProperty
     private String contents;
+
     private LocalDateTime createdDateTime;
 
     @OneToMany(mappedBy = "question")
+    @OrderBy("id DESC")
     @Where(clause = "deleted = false")
+    @JsonIgnore
     private List<Answer> answers;
 
     private boolean deleted;
@@ -99,6 +108,5 @@ public class Question {
                 ", createdDateTime=" + createdDateTime +
                 '}';
     }
-
 
 }

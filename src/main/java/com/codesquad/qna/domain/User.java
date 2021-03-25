@@ -1,5 +1,8 @@
 package com.codesquad.qna.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
@@ -7,19 +10,24 @@ import javax.validation.constraints.NotBlank;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty
     private Long id;
 
     @Column(nullable = false, length = 32, unique = true)
+    @JsonProperty
     private String userId;
 
     @Column(nullable = false, length = 64)
     @NotBlank(message = "Password may not be blank")
+    @JsonIgnore
     private String password;
 
     @Column(length = 32)
+    @JsonProperty
     private String name;
 
     @Column(length = 64)
+    @JsonProperty
     private String email;
 
     public Long getId() {

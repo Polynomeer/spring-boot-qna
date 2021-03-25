@@ -40,7 +40,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User findUserByUserId(Long id) {
+    public User findUserById(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(UserNotFoundException::new);
     }
@@ -58,7 +58,7 @@ public class UserService {
             throw new IllegalUserAccessException();
         }
 
-        User user = findUserByUserId(id);
+        User user = findUserById(id);
         logger.debug("User : {} found", sessionedUser.getUserId());
 
         return user;

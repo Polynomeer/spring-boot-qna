@@ -5,8 +5,6 @@ import com.codesquad.qna.repository.AnswerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class AnswerService {
     private final AnswerRepository answerRepository;
@@ -16,8 +14,8 @@ public class AnswerService {
         this.answerRepository = answerRepository;
     }
 
-    public void save(Answer answer) {
-        answerRepository.save(answer);
+    public Answer save(Answer answer) {
+        return answerRepository.save(answer);
     }
 
     public Answer findAnswerById(Long answerId) {

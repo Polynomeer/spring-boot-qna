@@ -2,6 +2,7 @@ package com.codesquad.qna.domain;
 
 import com.codesquad.qna.util.DateTimeUtils;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Where;
 
@@ -23,8 +24,7 @@ public class Answer {
 
     @ManyToOne
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_answer_to_question"))
-//    @JsonProperty
-    @JsonBackReference // child link
+    @JsonManagedReference
     private Question question;
 
     @Lob

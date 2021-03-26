@@ -28,7 +28,7 @@ public class ApiAnswerController {
 
     @PostMapping
     public Answer create(@PathVariable Long questionId, String contents, HttpSession session) {
-        if(!HttpSessionUtils.isLoginUser(session)) {
+        if (!HttpSessionUtils.isLoginUser(session)) {
             throw new UnauthorizedUserAccessException();
         }
 
@@ -40,19 +40,18 @@ public class ApiAnswerController {
     }
 
     @DeleteMapping("{answerId}")
-    public String delete(@PathVariable Long questionId, @PathVariable Long answerId, HttpSession session) {
-//        if (!HttpSessionUtils.isLoginUser(session)) {
-//            throw new UnauthorizedUserAccessException();
-//        }
-//
-//        User sessionedUser = HttpSessionUtils.getUserFromSession(session);
-//        Answer answer = answerService.findAnswerById(answerId);
-//
-//        if (!sessionedUser.isMatchedUserId(answer.getUserId())) {
-//            throw new IllegalUserAccessException();
-//        }
-//
-//        return answerService.delete(answer);
-        return "redirect:/";
+    public Result delete(@PathVariable Long questionId, @PathVariable Long answerId, HttpSession session) {
+        if (!HttpSessionUtils.isLoginUser(session)) {
+            throw new UnauthorizedUserAccessException();
+        }
+
+        User sessionedUser = HttpSessionUtils.getUserFromSession(session);
+        Answer answer = answerService.findAnswerById(answerId);
+
+        if (!sessionedUser.isMatchedUserId(answer.getUserId())) {
+            throw new IllegalUserAccessException();
+        }
+        answerService.delete(answer);
+        return Result.ok();
     }
 }

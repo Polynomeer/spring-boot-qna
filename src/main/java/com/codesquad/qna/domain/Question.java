@@ -1,6 +1,7 @@
 package com.codesquad.qna.domain;
 
 import com.codesquad.qna.util.DateTimeUtils;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -39,8 +40,7 @@ public class Question {
     @OneToMany(mappedBy = "question")
     @OrderBy("id DESC")
     @Where(clause = "deleted = false")
-//    @JsonIgnore
-    @JsonManagedReference
+    @JsonBackReference
     private List<Answer> answers;
 
     private boolean deleted;

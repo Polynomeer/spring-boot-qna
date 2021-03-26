@@ -1,4 +1,8 @@
-$(".answer-write button[type=submit]").click(addAnswer);
+// $(".answer-write button[type=submit]").click(addAnswer);
+$(".answer-write button[type='submit']").on("click", addAnswer);
+// $(".qna-comment-slipp-articles").on("click", ".delete-answer-form button[type='submit']", deleteAnswer);
+$(".qna-comment-slipp-articles").on("click", "a.link-delete-article", deleteAnswer);
+
 
 function addAnswer(e) {
     e.preventDefault();
@@ -34,13 +38,13 @@ function onSuccess(data, status) {
     $(".answer-write textarea").val("");
 }
 
-$("a.link-delete-article button[type='submit']").click(deleteAnswer);
+// $("a.link-delete-article").click(deleteAnswer);
 
 function deleteAnswer(e) {
     e.preventDefault(); // problem
 
     var deleteBtn = $(this);
-    var url = deleteBtn.attr("href");
+    var url = $("a.link-delete-article").attr("href");
     console.log("url : " + url);
 
     $.ajax({

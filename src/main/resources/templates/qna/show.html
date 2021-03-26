@@ -66,14 +66,11 @@
                                     <ul class="article-util-list">
                                         <li>
                                             <a class="link-modify-article"
-                                               href="/questions/{{question.id}}/answers/{{id}}/form">수정</a>
+                                               href="/api/questions/{{question.id}}/answers">수정</a>
                                         </li>
                                         <li>
-                                            <form class="form-delete" action="/questions/{{question.id}}/answers/{{id}}"
-                                                  method="POST">
-                                                <input type="hidden" name="_method" value="DELETE">
-                                                <button type="submit" class="delete-answer-button">삭제</button>
-                                            </form>
+                                            <a class="link-delete-article"
+                                               href="/api/questions/{{question.id}}/answers/{{id}}">삭제</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -81,7 +78,8 @@
                             {{/ question.answers}}
                             <form class="answer-write" method="post" action="/api/questions/{{question.id}}/answers">
                                 <div class="form-group" style="padding:14px;">
-                                    <textarea class="form-control" name="contents" placeholder="Update your status"></textarea>
+                                    <textarea class="form-control" name="contents"
+                                              placeholder="Update your status"></textarea>
                                 </div>
                                 <button class="btn btn-success pull-right" type="submit">답변하기</button>
                                 <div class="clearfix"/>

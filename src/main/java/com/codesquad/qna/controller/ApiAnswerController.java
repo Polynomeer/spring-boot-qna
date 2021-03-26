@@ -2,6 +2,7 @@ package com.codesquad.qna.controller;
 
 import com.codesquad.qna.domain.Answer;
 import com.codesquad.qna.domain.Question;
+import com.codesquad.qna.domain.Result;
 import com.codesquad.qna.domain.User;
 import com.codesquad.qna.exception.IllegalUserAccessException;
 import com.codesquad.qna.exception.UnauthorizedUserAccessException;
@@ -40,19 +41,18 @@ public class ApiAnswerController {
 
     @DeleteMapping("{answerId}")
     public String delete(@PathVariable Long questionId, @PathVariable Long answerId, HttpSession session) {
-        if (!HttpSessionUtils.isLoginUser(session)) {
-            return "redirect:/users/loginForm";
-        }
-
-        User sessionedUser = HttpSessionUtils.getUserFromSession(session);
-        Answer answer = answerService.findAnswerById(answerId);
-
-        if (!sessionedUser.isMatchedUserId(answer.getUserId())) {
-            throw new IllegalUserAccessException();
-        }
-
-        answerService.delete(answer);
-
-        return "redirect:/questions/{questionId}";
+//        if (!HttpSessionUtils.isLoginUser(session)) {
+//            throw new UnauthorizedUserAccessException();
+//        }
+//
+//        User sessionedUser = HttpSessionUtils.getUserFromSession(session);
+//        Answer answer = answerService.findAnswerById(answerId);
+//
+//        if (!sessionedUser.isMatchedUserId(answer.getUserId())) {
+//            throw new IllegalUserAccessException();
+//        }
+//
+//        return answerService.delete(answer);
+        return "redirect:/";
     }
 }

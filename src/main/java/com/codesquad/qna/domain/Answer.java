@@ -1,6 +1,7 @@
 package com.codesquad.qna.domain;
 
 import com.codesquad.qna.util.DateTimeUtils;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Where;
 
@@ -22,14 +23,15 @@ public class Answer {
 
     @ManyToOne
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_answer_to_question"))
-    @JsonProperty
+//    @JsonProperty
+    @JsonBackReference // child link
     private Question question;
-
-    private LocalDateTime createdDateTime;
 
     @Lob
     @JsonProperty
     private String contents;
+
+    private LocalDateTime createdDateTime;
 
     private boolean deleted;
 

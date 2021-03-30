@@ -36,7 +36,7 @@ public class ApiAnswerController {
         Question question = questionService.findQuestionById(questionId);
         Answer answer = new Answer(user, question, contents);
 
-        return answerService.save(answer);
+        return answerService.save(question, answer);
     }
 
     @DeleteMapping("{answerId}")
@@ -51,7 +51,10 @@ public class ApiAnswerController {
         if (!sessionedUser.isMatchedUserId(answer.getUserId())) {
             throw new IllegalUserAccessException();
         }
-        answerService.delete(answer);
+
+        Question question = questionService.findQuestionById(questionId);
+        answerService.delete(question, answer);
+
         return Result.ok();
     }
 }

@@ -1,6 +1,7 @@
 package com.codesquad.qna.service;
 
 import com.codesquad.qna.domain.Answer;
+import com.codesquad.qna.domain.Question;
 import com.codesquad.qna.repository.AnswerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,8 @@ public class AnswerService {
         this.answerRepository = answerRepository;
     }
 
-    public Answer save(Answer answer) {
+    public Answer save(Question question, Answer answer) {
+        question.increaseAnswerNum();
         return answerRepository.save(answer);
     }
 
@@ -23,8 +25,9 @@ public class AnswerService {
                 .orElseThrow(IllegalArgumentException::new);
     }
 
-    public void delete(Answer answer) {
+    public void delete(Question question, Answer answer) {
         answer.delete();
+        question.decreaseAnswerNum();
         answerRepository.save(answer);
     }
 }

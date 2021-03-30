@@ -35,15 +35,17 @@ public class Question {
     @JsonProperty
     private String contents;
 
-    private LocalDateTime createdDateTime;
-
     @OneToMany(mappedBy = "question")
     @OrderBy("id DESC")
     @Where(clause = "deleted = false")
     @JsonBackReference
     private List<Answer> answers;
 
+    @JsonProperty
+    private Integer answerNum;
+
     private boolean deleted;
+    private LocalDateTime createdDateTime;
 
     public Question(User writer, String title, String contents) {
         this.writer = writer;
@@ -87,8 +89,16 @@ public class Question {
         return this.answers;
     }
 
-    public int getAnswerNum() {
-        return answers.size();
+    public Integer getAnswerNum() {
+        return answerNum;
+    }
+
+    public void increaseAnswerNum() {
+        answerNum++;
+    }
+
+    public void decreaseAnswerNum() {
+        answerNum--;
     }
 
     public void update(Question updatedQuestion) {

@@ -7,12 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonProperty
-    private Long id;
-
+public class User extends AbstractEntity {
     @Column(nullable = false, length = 32, unique = true)
     @JsonProperty
     private String userId;
@@ -30,10 +25,6 @@ public class User {
     @JsonProperty
     private String email;
 
-    public Long getId() {
-        return id;
-    }
-
     public String getUserId() {
         return userId;
     }
@@ -48,10 +39,6 @@ public class User {
 
     public String getEmail() {
         return email;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public void setUserId(String userId) {
@@ -78,7 +65,7 @@ public class User {
     }
 
     public boolean isMatchedId(Long id) {
-        return this.id.equals(id);
+        return this.getId().equals(id);
     }
 
     public boolean isMatchedUserId(String userId) {

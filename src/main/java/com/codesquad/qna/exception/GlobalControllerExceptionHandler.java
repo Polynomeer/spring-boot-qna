@@ -1,11 +1,8 @@
 package com.codesquad.qna.exception;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @ControllerAdvice
 public class GlobalControllerExceptionHandler {
@@ -16,8 +13,9 @@ public class GlobalControllerExceptionHandler {
     }
 
     @ExceptionHandler(IllegalUserAccessException.class)
-    private String handleIllegalUserAccessException(IllegalUserAccessException e) {
-        return "redirect:/users";
+    private String handleIllegalUserAccessException(Model model, IllegalUserAccessException e) {
+        model.addAttribute("errorMessage", e.getMessage());
+        return "/user/login";
     }
 
     @ExceptionHandler(UnauthorizedUserAccessException.class)

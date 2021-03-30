@@ -1,22 +1,14 @@
 package com.codesquad.qna.domain;
 
-import com.codesquad.qna.util.DateTimeUtils;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Where(clause = "deleted = false")
-public class Answer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonProperty
-    private Long id;
-
+public class Answer extends AbstractEntity {
     @ManyToOne
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_answer_writer"))
     @JsonProperty
@@ -31,10 +23,6 @@ public class Answer {
     @JsonProperty
     private String contents;
 
-    private LocalDateTime createdDateTime;
-
-    private boolean deleted;
-
     protected Answer() {
     }
 
@@ -42,11 +30,6 @@ public class Answer {
         this.writer = writer;
         this.question = question;
         this.contents = contents;
-        this.createdDateTime = LocalDateTime.now();
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public String getUserId() {
@@ -57,12 +40,5 @@ public class Answer {
         return contents;
     }
 
-    public String getCreatedTime() {
-        return DateTimeUtils.formatByPattern(createdDateTime);
-    }
-
-    public void delete() {
-        deleted = true;
-    }
 }
 

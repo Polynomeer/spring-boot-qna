@@ -1,26 +1,16 @@
 package com.codesquad.qna.domain;
 
-import com.codesquad.qna.util.DateTimeUtils;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Where(clause = "deleted = false")
-public class Question {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonProperty
-    private Long id;
-
+public class Question extends AbstractEntity {
     @ManyToOne
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_question_writer"))
     @JsonProperty
@@ -44,21 +34,13 @@ public class Question {
     @JsonProperty
     private Integer answerNum;
 
-    private boolean deleted;
-    private LocalDateTime createdDateTime;
-
     public Question(User writer, String title, String contents) {
         this.writer = writer;
         this.title = title;
         this.contents = contents;
-        this.createdDateTime = LocalDateTime.now();
     }
 
     protected Question() {
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public User getWriter() {
@@ -75,14 +57,6 @@ public class Question {
 
     public String getContents() {
         return contents;
-    }
-
-    public LocalDateTime getCreatedDateTime() {
-        return createdDateTime;
-    }
-
-    public String getCreatedTime() {
-        return DateTimeUtils.formatByPattern(createdDateTime);
     }
 
     public List<Answer> getAnswers() {
@@ -105,20 +79,4 @@ public class Question {
         this.title = updatedQuestion.title;
         this.contents = updatedQuestion.contents;
     }
-
-    public void delete() {
-        deleted = true;
-    }
-
-    @Override
-    public String toString() {
-        return "Question{" +
-                "id=" + id +
-                ", writer='" + writer + '\'' +
-                ", title='" + title + '\'' +
-                ", contents='" + contents + '\'' +
-                ", createdDateTime=" + createdDateTime +
-                '}';
-    }
-
 }
